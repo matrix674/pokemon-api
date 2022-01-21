@@ -4,4 +4,4 @@ pokemon-api
 Compilation
 ------------
 
-    $ npm install
+    npm install
