@@ -4,6 +4,7 @@ const path = require('path');
 
 const ENTRIES_PER_PAGE = 50;
 const STATUS_SUCCESS = 200;
+const STATUS_SUCCES_NO_DATA = 204;
 const STATUS_BAD_REQUEST = 400;
 const STATUS_NOT_FOUND = 404;
 const STATUS_CONFLICT = 409;
@@ -19,6 +20,7 @@ const columns = {
 	'Type 1': {validationFct: (value) => validateString(value, {maxLength: 20}), invalidMsg: 'Attribute \'Type 1\' must be a string of maximum 20 characters and must not be null or empty.'},
 	'Type 2': {validationFct: (value) => validateString(value, {maxLength: 20, allowNull: true}), invalidMsg: 'Attribute \'Type 2\' must be a string of maximum 20 characters.'},
 	Total: {formatFct: toInt, validationFct: (value) => validateInt(value, {min: 1}), invalidMsg: 'Attribute \'Total\' must be an integer, greater than 0 and must not be null.'},
+	HP: {formatFct: toInt, validationFct: (value) => validateInt(value, {min: 1}), invalidMsg: 'Attribute \'HP\' must be an integer, greater than 0 and must not be null.'},
 	Attack: {formatFct: toInt, validationFct: (value) => validateInt(value, {min: 1}), invalidMsg: 'Attribute \'Attack\' must be an integer, greater than 0 and must not be null.'},
 	Defense: {formatFct: toInt, validationFct: (value) => validateInt(value, {min: 1}), invalidMsg: 'Attribute \'Defense\' must be an integer, greater than 0 and must not be null.'},
 	'Sp. Atk': {formatFct: toInt, validationFct: (value) => validateInt(value, {min: 1}), invalidMsg: 'Attribute \'Sp. Atk\' must be an integer, greater than 0 and must not be null.'},
@@ -89,7 +91,7 @@ function deletePokemon(req, res) {
 	if (pokemonsMap[req.params.name] == null) res.status(STATUS_NOT_FOUND).send('Pokemon not found.');
 	else {
 		delete pokemonsMap[req.params.name];
-		res.sendStatus(STATUS_SUCCESS);
+		res.sendStatus(STATUS_SUCCES_NO_DATA);
 		saveCsvFile();
 	}
 }
@@ -110,7 +112,7 @@ function updatePokemon(req, res) {
 				delete pokemonsMap[req.params.name];
 			}
 			updateEntryData(entry, req.body);
-			res.sendStatus(STATUS_SUCCESS);
+			res.sendStatus(STATUS_SUCCES_NO_DATA);
 			saveCsvFile();
 		}
 		else {
@@ -129,7 +131,7 @@ function createPokemon(req, res) {
 		let entry = {};
 		updateEntryData(entry, req.body);
 		pokemonsMap[req.body.Name] = entry;
-		res.sendStatus(STATUS_SUCCESS);
+		res.sendStatus(STATUS_SUCCES_NO_DATA);
 		saveCsvFile();
 	}
 	else {
