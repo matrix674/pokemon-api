@@ -21,11 +21,11 @@ Returns the stats of the pokemon with the specified name.
 
     POST - /createPokemon
     
-Create a new pokemon. The pokemon name must not already exists. The body must contain a JSON object similar like the one returned from /getPokemon
+Create a new pokemon. The pokemon name must not already exists. The body must contain a JSON object similar to the one returned from /getPokemon
     
     PUT - /updatePokemon/:name
     
-Updates an existing pokemon. The body must contain a JSON object similar like the one returned from /getPokemon with the values that need to be updated
+Updates an existing pokemon. The body must contain a JSON object similar to the one returned from /getPokemon with the values that need to be updated
     
     DELETE - /deletePokemon/:name
     
